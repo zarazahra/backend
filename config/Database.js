@@ -1,11 +1,9 @@
-import { Sequelize } from '@sequelize/core';
-import { MySqlDialect } from '@sequelize/mysql';
+import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize({
-  dialect: MySqlDialect,
-  database: 'abk',
-  user: 'root',
-  password: '',
-  host: 'localhost',
-  port: 3306,
+const db = new Sequelize ('abk', 'root', '', {
+    host:"localhost",
+    dialect:"mysql",
+    timezone: '+7:30',
 });
+
+export default db;

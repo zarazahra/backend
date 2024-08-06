@@ -1,11 +1,46 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import session from "express-session";
+import db from "./config/Database.js";
+import ManagemenRoute from "./routes/ManagemenRoute.js";
+import SequelizeStore from "connect-session-sequelize";
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+dotenv.config();
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const app = express();
+
+(async()=>{
+    await db.sync();
+})();
+const  sessionStore =SequelizeStore(session.Store);
+
+const store = new sessionStore(({
+    db:db
+}));
+
+app.use(session({
+    secret:process.env.SESS_SECRET,
+    resave:false,
+    saveUninitialized:true,
+    store: store,
+    cookie:{
+        secure:'auto'
+    }
+}))
+app.use(cors({
+    credentials:true,
+    origin: 'http://localhost:3000' 
+}));
+app.use(express.json());
+
+app.use(ManagemenRoute);
+
+store.sync();
+
+
+store.sync();
+ 
+app.listen(process.env.APP_PORT, ()=>{
+    console.log('Server Sedang Berjalan ........');
+});
