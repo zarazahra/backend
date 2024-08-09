@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import session from "express-session";
 import db from "./config/Database.js";
 import ManagemenRoute from "./routes/ManagemenRoute.js";
+import ModulRoute from "./routes/ModuleRoute.js";
 import SequelizeStore from "connect-session-sequelize";
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use(ManagemenRoute);
+app.use(ModulRoute);
 
 store.sync();
 
