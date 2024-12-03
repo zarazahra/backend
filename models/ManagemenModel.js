@@ -17,16 +17,7 @@ const ManagemenModel = db.define('managemen',{
         allowNull: true,
         validate:{
             notEmpty:true,
-        }
-    },
-    
-    namaLengkap:{
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate:{
-            notEmpty:true,
-        }
-    },
+        }    },
     email:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,21 +25,14 @@ const ManagemenModel = db.define('managemen',{
             notEmpty:true,
         }
     },
-    noTelpn:{
+    password:{
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
             notEmpty:true
         }
     },
-    level:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-            notEmpty:true
-        }
-    },
-    blokir:{
+    role:{
         type: DataTypes.STRING,
         allowNull: false,
         validate:{

@@ -4,7 +4,7 @@ import ManagemenModel from "../models/ManagemenModel.js";
 export const getManagemen = async(req, res) =>{
     try {
         const response = await ManagemenModel.findAll({
-            attributes:['uuid', 'userName','namaLengkap', 'email','noTelpn','level','blokir'],
+            attributes:['uuid', 'userName','email','role'],
         })
         res.status(200).json(response);
     } catch (error) {
@@ -16,7 +16,7 @@ export const getManagemen = async(req, res) =>{
 export const getManagemenById = async(req, res) =>{
     try {
         const response = await ManagemenModel.findOne({
-            attributes:['uuid', 'userName','namaLengkap', 'email','noTelpn','level','blokir'],
+            attributes:['uuid', 'userName','email','role'],
             where:{
                 uuid:req.params.id
             }
@@ -29,15 +29,14 @@ export const getManagemenById = async(req, res) =>{
 
 //done
 export const createManagemen = async(req, res) =>{
-    const {userName,namaLengkap, email,noTelpn,level,blokir} = req.body;
+    const {userName,email,role, password} = req.body;
         try {
             await ManagemenModel.create({
                 userName:userName,
-                namaLengkap:namaLengkap,
                 email:email,
-                noTelpn: noTelpn,
-                level:level,
-                blokir: blokir,
+                password: password,
+                role: role,
+               
             });
             res.status(201).json({msg: "Register Berhasil"});
         } catch (error) {
@@ -52,15 +51,14 @@ export const updateManagemen = async(req, res) =>{
         }
     });
     if(!managemen) return res.status(404).json({msg:"Managemen Tidak Di temukan"});
-    const {userName,namaLengkap, email,noTelpn,level,blokir} = req.body;
+    const {userName,email,role,password} = req.body;
     try {
         await ManagemenModel.update({
             userName:userName,
-            namaLengkap:namaLengkap,
             email:email,
-            noTelpn: noTelpn,
-            level:level,
-            blokir: blokir,
+            password:password,
+            role: role,
+           
         },{
             where: {
                 uuid : managemen.uuid
